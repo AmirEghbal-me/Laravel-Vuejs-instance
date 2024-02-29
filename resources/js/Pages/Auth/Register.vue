@@ -8,6 +8,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
     name: '',
+    role: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -52,6 +53,17 @@ const submit = () => {
                     required
                     autocomplete="username"
                 />
+
+                <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+            <div class="mt-4">
+                <InputLabel for="role" value="Role" />
+                <select v-model="form.role"
+                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600"
+                >
+                    <option disabled value="">Please select Role</option>
+                    <option value="1">Admin</option>
+                </select>
 
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>

@@ -1,5 +1,27 @@
-<script setup>
-
+<script>
+import axios from 'axios'
+export default {
+    mounted() {
+        this.getUserInfo()
+    },
+    data() {
+        return {
+            greeting: 'Hello World!'
+        }
+    },
+    methods:{
+        getUserInfo(){
+            axios.post(`http://localhost:8000/api/users/delete`,data)
+                .then(response => {
+                    this.closeDelete();
+                    this.refreshData();
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    }
+}
 </script>
 
 <template>
@@ -27,7 +49,9 @@
         <div id="nav-footer">
             <div id="nav-footer-heading">
                 <div id="nav-footer-avatar"><img src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"/></div>
-                <div id="nav-footer-titlebox"><a id="nav-footer-title" href="https://codepen.io/uahnbu/pens/public" target="_blank">uahnbu</a><span id="nav-footer-subtitle">Admin</span></div>
+                <div id="nav-footer-titlebox">
+                    <a id="nav-footer-title" href="https://codepen.io/uahnbu/pens/public" target="_blank">{{ $page.props.auth.user.name }}</a>
+                </div>
                 <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
             </div>
             <div id="nav-footer-content">
@@ -86,6 +110,9 @@ html, body {
     margin-left: 0;
     left: 50%;
     transform: translate(-50%);
+}
+#nav-footer-title{
+    font-size: 15px;
 }
 #nav-toggle:checked ~ #nav-footer #nav-footer-titlebox, #nav-toggle:checked ~ #nav-footer label[for=nav-footer-toggle] {
     opacity: 0;
@@ -338,7 +365,6 @@ label[for=nav-toggle] {
 #nav-footer-titlebox {
     position: relative;
     margin-left: 16px;
-    width: 10px;
     display: flex;
     flex-direction: column;
     transition: opacity 1s;
